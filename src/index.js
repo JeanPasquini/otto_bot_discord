@@ -1,5 +1,5 @@
-require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
+const { token, prefix } = require("../config.json");
 
 const client = new Client({
     intents: [
@@ -10,18 +10,28 @@ const client = new Client({
     ],
 });
 
-client.on('messageCreate', (message) => {
-    if (message.author.bot) {
-        return;
-    }
-
-    if (message.content === 'hello') {
-        message.reply('hello');
-    } 
-});
-
 client.on('ready', (c) => {
     console.log(`✔ ${c.user.tag} is online.`)
 });
 
-client.login(process.env.TOKEN);
+client.on('guildMemberAdd', (member) => {
+    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === 'bot-chat');
+
+    if (welcomeChannel) {
+        welcomeChannel.send(`Bem-vindo, @${member.user}!`);
+    }
+});
+
+module.exports = { client };
+
+client.on("messageCreate", (msg) => {
+  if (!msg.guild || msg.author.bot) return;
+  if (!msg.content.startsWith(prefix)) return;
+
+  const args = msg.content.slice(prefix.length).trim().split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  require("./commands")(client, msg, args, command);
+});
+
+client.login(token);
