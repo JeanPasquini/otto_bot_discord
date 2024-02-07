@@ -1,10 +1,9 @@
 process.env.NODE_NO_WARNINGS = 1;
 const { Client, IntentsBitField, EmbedBuilder } = require("discord.js");
 const { token, prefix } = require("../config.json");
-const Database = require("./config/database");
-const db = new Database;
-
-db.connect();
+//const Database = require("./config/database");
+//const db = new Database;
+//db.connect();
 
 const client = new Client({
     intents: [

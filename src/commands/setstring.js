@@ -1,5 +1,5 @@
 const { Guild, EmbedBuilder } = require('discord.js');
-const TextoModel = require('../../models/test');
+const TextoModel = require('../models/test');
 
 
 module.exports = async (client, msg, args, command) => {
@@ -10,7 +10,7 @@ module.exports = async (client, msg, args, command) => {
             const novaString = args.join(' '); // Junta os argumentos para formar a string completa
 
             // Crie um novo documento com a string e salve no banco de dados
-            const novoDocumento = new TextoModel({ id: 1,
+            const novoDocumento = new TextoModel({ id: 2,
                                                    text: novaString });
             await novoDocumento.save();
 
