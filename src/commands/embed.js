@@ -13,3 +13,4 @@ module.exports = async (client, msg, args, command) => {
     return msg.channel.send({ embeds: [exampleEmbed] });
   }
 }
+
